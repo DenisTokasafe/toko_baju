@@ -124,7 +124,12 @@
 
         <div class="col-span-2">
             <fieldset class="p-4 border shadow-md fieldset rounded-box card grow bg-base-200 border-base-300">
-                <legend class="fieldset-legend">Keranjang {{ $transaksi_id }}</legend>
+                <legend class="fieldset-legend">Keranjang </legend>
+                <div class="grid px-4 justify-items-stretch ">
+
+                    <span class="text-2xl capitalize justify-self-end">Total Harga : <span class="font-semibold">
+                            {{ $total_price }}</span>
+                </div>
                 <div
                     class="overflow-x-auto overflow-y-auto border rounded-sm  h-[40vh] rounded-box border-base-content/5">
                     <table class="table text-center capitalize table-xs table-pin-rows">

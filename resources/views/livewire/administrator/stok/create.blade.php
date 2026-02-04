@@ -1,5 +1,4 @@
 <div class="p-2 bg-base-200">
-
     <form wire:submit.prevent='store'>
         <div class="grid grid-cols-none gap-1 px-1 lg:grid-cols-2 ">
             <div>
@@ -56,15 +55,16 @@
             </fieldset>
             <fieldset class="pb-0.5 fieldset ">
                 <x-lable-req>{{ __('Harga Satuan') }}</x-lable-req>
-                <x-text-input wire:model.live='harga_jual_rp' :error="$errors->get('harga_jual_rp')" id="harga-jual" type="text"
+                <x-text-input wire:model.live='harga_jual' :error="$errors->get('harga_jual')" id="harga_jual" type="text"
                     placeholder="Harga Jual" />
-                <x-input-error :messages="$errors->get('harga_jual_rp')" />
+                <x-input-error :messages="$errors->get('harga_jual')" />
+
             </fieldset>
             <fieldset class="pb-0.5 fieldset ">
                 <x-lable-req>{{ __('Harga Pokok') }}</x-lable-req>
-                <x-text-input wire:model.live='harga_pokok_rp' :error="$errors->get('harga_pokok_rp')" id="harga-pokok" type="text"
+                <x-text-input wire:model.live='harga_pokok' :error="$errors->get('harga_pokok')" id="harga-pokok" type="text"
                     placeholder="Harga Pokok" />
-                <x-input-error :messages="$errors->get('harga_pokok_rp')" />
+                <x-input-error :messages="$errors->get('harga_pokok')" />
             </fieldset>
             <fieldset class="pb-0.5 fieldset ">
                 <x-label>Foto Pakaian</x-label>
@@ -122,62 +122,7 @@
                 </form>
             </div>
         </div>
-        <script>
-            /* Dengan Rupiah */
-            var harga_jual = document.getElementById('harga-jual');
-            harga_jual.addEventListener('keyup', function(e) {
-                harga_jual.value = formatRupiah(this.value, 'Rp. ');
-            });
-            /* Dengan Rupiah */
-            var harga_pokok = document.getElementById('harga-pokok');
-            harga_pokok.addEventListener('keyup', function(e) {
-                harga_pokok.value = formatharga_pokok(this.value, 'Rp. ');
-            });
 
-            /* Fungsi Rupiah*/
-            function formatRupiah(angka, prefix) {
-                var number_string = angka.replace(/[^,\d]/g, '').toString(),
-
-                    split = number_string.split(','),
-                    sisa = split[0].length % 3,
-                    rupiah = split[0].substr(0, sisa),
-                    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-                console.log(number_string);
-                @this.set('harga_jual', number_string)
-                if (ribuan) {
-                    separator = sisa ? '.' : '';
-                    rupiah += separator + ribuan.join('.');
-                }
-
-                rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-                return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
-
-
-
-            }
-            /* Fungsi harga_pokok*/
-            function formatharga_pokok(angka, prefix) {
-                var number_string = angka.replace(/[^,\d]/g, '').toString(),
-
-                    split = number_string.split(','),
-                    sisa = split[0].length % 3,
-                    rupiah = split[0].substr(0, sisa),
-                    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-                console.log(number_string);
-
-                @this.set('harga_pokok', number_string)
-                if (ribuan) {
-                    separator = sisa ? '.' : '';
-                    rupiah += separator + ribuan.join('.');
-                }
-
-                rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-                return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
-
-
-
-            }
-        </script>
     </dialog>
     <livewire:administrator.ukuran.create>
         <livewire:administrator.warna.create>

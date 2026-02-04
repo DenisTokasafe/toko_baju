@@ -36,11 +36,8 @@ class Create extends Component
     }
     public function mount()
     {
-        $transaksi = Transaksi::exists();
-        if ($transaksi) {
-
-            $this->transaksi_id = Transaksi::latest()->first()->id + 1;
-        }
+        $transaksi = Transaksi::latest()->first();
+        $this->transaksi_id = $transaksi ? $transaksi->id + 1 : 1;
     }
     public function render()
     {
@@ -72,11 +69,10 @@ class Create extends Component
             $this->total_harga = 0;
         }
         $this->updateTotalPrice();
-        $products = StokPakaian::where('kode_pakaian', 'like', '%' . $this->search . '%')->get();
         return view('livewire.transaksi.create', [
-            'source' => $source,
-            'products' => $products,
-            'customers' => Customer::search(trim($this->customer_name))->get()
+          'source' => Approval::where('new_data->transaksi_id', $this->transaksi_id)->get(),
+        'products' => StokPakaian::where('kode_pakaian', 'like', '%' . $this->search . '%')->get(),
+        'customers' => Customer::search(trim($this->customer_name))->get()
 
         ])->extends('layouts.app', ['header' => 'Transaksi Baru', 'title' => 'Transaksi Baru'])->section('content');
     }
